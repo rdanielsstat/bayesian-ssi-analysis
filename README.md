@@ -40,12 +40,12 @@ The analyses in this project use the following tools and frameworks:
 
 ```text
 .
-├── 01_ca_colon_ssi.md.               # Intro and background section
+├── 01_ca_colon_ssi.md                # Intro and background section
 ├── 02_data.ipynb                     # EDA section
 ├── 03_non-hierarchical_models.ipynb  # Non-hierarchical models
-├── 04_hierarchical_models.ipynb.     # Hierarchical models
+├── 04_hierarchical_models.ipynb      # Hierarchical models
 ├── references.bib                    # BibTeX references
-├── data/                             # Raw and processed datasets (publicly available sources)
+├── data/                             # Raw dataset (publicly available)
 ├── figures/                          # Generated figures from analyses
 ├── myst.yml                          # MyST project configuration
 └── README.md                         # This file
@@ -55,7 +55,7 @@ The analyses in this project use the following tools and frameworks:
 
 Data for this analysis come from the **California Department of Health and Human Services (CHHS)** and are publicly available:
 
-- [Surgical Site Infections (SSIs) for 28 Operative Procedures in California Hospitals](https://data.chhs.ca.gov/dataset/surgical-site-infections-ssis-for-28-operative-procedures-in-california-hospitals)
+- [Surgical Site Infections (SSIs) for Operative Procedures in California Hospitals](https://data.chhs.ca.gov/dataset/surgical-site-infections-ssis-for-28-operative-procedures-in-california-hospitals)
 
 The dataset includes facility-level SSI counts and procedure volumes, as well as facility type and county identifiers. No individual patient-level data are included.
 
