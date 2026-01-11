@@ -21,3 +21,5 @@ project:
 site:
   title: Modeling SSI Risk After Colon Surgery in California
   template: book-theme
+  options:
+    logo_text: Bayesian SSI Analysis
