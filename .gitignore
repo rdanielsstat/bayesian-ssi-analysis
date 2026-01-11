@@ -1,0 +1,5 @@
+# macOS system files
+.DS_Store
+
+# MyST build directory
+_build/

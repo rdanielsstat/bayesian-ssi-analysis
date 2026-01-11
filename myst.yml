@@ -1,0 +1,23 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: a183e53d-164d-4442-9bde-a8939e4eb2a5
+  title: Surgical Site Infection Risk After Colon Surgery in California Hospitals
+  authors:
+    - name: Rob Daniels
+      email: rdanielsstat@gmail.com
+      url: https://rdanielsstat.github.io
+      linkedin: https://www.linkedin.com/in/robcdaniels
+      github: rdanielsstat
+  date: 2026-01-10
+  license: CC-BY-NC-4.0
+  toc:
+    - file: 01_ca_colon_ssi.md
+    - file: 02_data.ipynb
+    - file: 03_non-hierarchical_models.ipynb
+    - file: 04_hierarchical_models.ipynb
+  bibliography:
+    - references.bib
+site:
+  title: Modeling SSI Risk After Colon Surgery in California
+  template: book-theme
