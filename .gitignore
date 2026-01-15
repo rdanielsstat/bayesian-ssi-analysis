@@ -14,3 +14,10 @@ data/cdph_ssi_adult_odp_2019.csv
 data/cdph_ssi_adult_odp_2018.csv
 data/ssi-sir-2017-ca-cdph-adult_28procs_.csv
 data/ssi-sir-2016-ca-cdph-adult28procssy10232017.csv
+
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.synctex.gz

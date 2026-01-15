@@ -1,0 +1,219 @@
+\documentclass[10pt,twocolumn]{article}
+
+\usepackage[letterpaper, top=0.75in, bottom=0.8in, left=0.8in, right=0.8in]{geometry}
+
+%\usepackage[parfill]{parskip}			% Activate to begin paragraphs with an empty line rather than an indent
+
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+
+\usepackage[numbers]{natbib}
+\setlength{\bibsep}{4pt}
+
+\usepackage{setspace}
+\setstretch{1.05}
+
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{1.5ex}{0.8ex}
+\titlespacing*{\subsection}{0pt}{1.2ex}{0.6ex}
+
+\usepackage{booktabs}
+\renewcommand{\arraystretch}{1.05}
+
+\usepackage{float}
+
+\usepackage{amsmath}
+
+\usepackage{verbatim}
+\usepackage{fancyvrb}
+\usepackage{fvextra}					% Extension of fancyvrb
+\DefineVerbatimEnvironment{HighlightOutput}{Verbatim}{
+    fontsize=\small,
+    frame=single,
+    breaklines=true,
+    breakanywhere=true
+}
+
+\usepackage{titling}
+\setlength{\droptitle}{-1.5cm}
+
+\title{Surgical Site Infection Risk Following Colon Procedures in California Hospitals (2024)}
+\author{Rob Daniels}
+
+\usepackage{hyperref} 
+\hypersetup{
+    breaklinks=true,					% Allows line breaks in links
+    colorlinks=true,					% Optional: makes links colored
+    urlcolor=blue,
+    citecolor=blue,					% Links for citations (change from default green)
+    linkcolor=black					% Links for sections, figures, tables
+}
+\usepackage{url}					% Safe line-breaking of URLs
+
+\def\UrlBreaks{\do\/\do-}
+
+\begin{document}
+\maketitle
+\section*{Executive summary/abstract}
+Surgical site infections (SSIs) following colon procedures are a significant source of patient morbidity, mortality, and healthcare costs. This project analyzes 2024 California acute-care hospital data to estimate facility-level SSI risk for colon surgeries, accounting for facility type and county-level variation. A hierarchical Bayesian binomial model with county-specific random effects and fixed effects for facility type was fit, producing partially pooled estimates that stabilize rates for low-volume facilities. Across 288 hospitals performing 29,835 procedures, 628 SSIs were reported, corresponding to a statewide pooled infection proportion of 2.1\%.
+
+Model results indicate that, compared with the reference group (Community, $<125$ Beds), all other facility types have higher log-odds of infection: posterior means of 0.30, 0.61, and 0.59 for Community 125--250 Beds, Community $>250$ Beds, and Major Teaching hospitals, respectively. The county-level random effect standard deviation, $\sigma \approx 0.46$, reflects moderate variation in baseline risk across counties. These findings illustrate the value of hierarchical modeling for sparse, heterogeneous healthcare data, providing stable and interpretable facility-level risk estimates while highlighting residual county-level variation. The results support evidence-based understanding of SSI risk and can inform targeted quality improvement initiatives.
+
+\section*{Introduction}
+Surgical site infections (SSIs) are a common complication of surgery, accounting for approximately 20--31\% of all hospital-acquired infections and contributing to increased patient morbidity, mortality, and healthcare costs \citep{nhsn2026ssi}. After colorectal surgery, roughly 4.2\% of patients develop SSIs, often resulting in prolonged hospitalization and higher treatment costs \citep{gantz2019}. Because SSIs are considered partially preventable, facility-level infection rates are widely used for hospital quality monitoring, benchmarking, and public reporting.
+
+Accurate estimation of SSI risk at the facility level is challenging because many hospitals perform relatively few colon procedures and therefore report zero or very small numbers of infections in a given year. In such settings, raw observed rates can be dominated by sampling variability, producing extreme values that do not reliably reflect underlying risk. These features motivate the use of statistical models that explicitly account for uncertainty and allow information to be shared across comparable facilities to obtain stable and interpretable risk estimates.
+
+The goal of this project is to use 2024 California acute-care hospital data to estimate facility-level SSI risk for colon procedures while accounting for facility type and county-level context \citep{cdph2024ssi}. Specifically, the analysis seeks to answer the following questions:
+
+\begin{enumerate}
+\item What are the posterior estimates of SSI risk for each facility, and how do these compare with the observed rates when uncertainty and partial pooling are considered?
+\item How much do SSI risks vary across counties after adjusting for facility type?
+\item Which facility types are associated with higher infection probabilities, after accounting for county-level variation?
+\item What is the posterior probability that a facility-specific SSI risk exceeds the statewide pooled infection proportion?
+\end{enumerate}
+
+To address these questions, a hierarchical Bayesian binomial model with county-specific random effects and fixed effects for facility type was fit to the data. This specification allows facilities within the same county to share information while capturing meaningful differences across facilities and counties. The hierarchical approach produces partially pooled estimates with full posterior uncertainty, providing more stable and interpretable risk estimates than raw observed rates, particularly for low-volume hospitals.
+
+\section*{Data}
+
+The data for this analysis were obtained from the California Department of Health and Human Services and consist of 2024 facility-level reports of colon surgery SSIs. These data are mandatory hospital self-reports submitted as part of statewide healthcare-associated infection surveillance. The dataset was downloaded on December 28, 2025, and comprises 288 acute-care hospitals across 42 counties. It includes only adult patients and excludes pediatric hospitals. Key variables include the number of colon procedures with SSIs (numerator), the total number of colon procedures (denominator), county, and facility type, enabling estimation of facility-level infection risk and comparison across counties and facility types (\autoref{tab:facility_types}).
+
+\begin{table}[!h]
+\centering
+\caption{Facility types among California acute-care hospitals reporting colon surgery SSIs in 2024.}
+\label{tab:facility_types}
+\vspace{0.75em}
+\begin{tabular}{lrr}
+\toprule
+Facility type & n & \%\\
+\midrule
+Community, $<125$ Beds & 67 & 23.3\%\\
+Community, 125--250 Beds & 58 & 20.1\%\\
+Community, $>250$ Beds & 42 & 14.6\%\\
+Major Teaching & 121 & 42.0\%\\
+Total & 288 & 100.0\%\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Across all facilities, 628 SSIs were reported for 29,835 colon procedures, resulting in a pooled infection proportion of 2.1\%. Facility-level SSI rates vary substantially, particularly among low-volume hospitals, highlighting the need for partial pooling. These data are well suited to answering the research questions because they provide complete, facility-level counts with contextual information on facility type and county. This allows for estimation of SSI risk at the facility level, comparison across facility types, and quantification of county-level variation. By including all non-pediatric acute-care hospitals that reported colon surgery outcomes in 2024, the dataset provides a comprehensive snapshot appropriate for hierarchical modeling.
+
+\autoref{tab:ssi_summary} presents the distribution of facility-level SSI rates. The “mean” is the unweighted mean of facility proportions, giving each facility equal weight regardless of procedure volume. This measure reflects the average facility-level rate, not the patient-level statewide rate.
+
+\begin{table}[!h]
+\centering
+\caption{Summary statistics of facility-level observed SSI rates}
+\label{tab:ssi_summary}
+\vspace{0.75em}
+
+\begin{tabular}{@{} rrrrrr @{}}
+\toprule
+Min. & 1st Qu. & Median & Mean & 3rd Qu. & Max.\\
+\midrule
+0 & 0 & 1.06 & 1.76 & 2.62 & 16.7\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\autoref{fig:hist} shows the distribution of facility colon procedure volumes. Volumes are highly skewed: most facilities performed fewer than 200 procedures, while the highest-volume facility (Stanford Health Care) performed 623 procedures.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/figure1_procedures_hist.png}
+\caption{Distribution of facility-level colon procedure volumes in California acute-care hospitals, 2024.}
+\label{fig:hist}
+\end{figure}
+
+\autoref{fig:facility_rates} illustrates the relationship between facility volume and observed SSI rate. Many facilities report only 1--6 infections, resulting in discrete observed rates. On the log-scaled volume axis, these fractions form visible curved bands, particularly among facilities with fewer than 250 procedures, indicating high variability at low volumes and motivating the use of a hierarchical model.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/figure2_procedure_vs_rate.png}
+\caption{Observed SSI rates (in decimals) versus colon procedure volumes (log scale) for California acute-care hospitals in 2024, colored by facility type. The dashed line indicates the statewide pooled infection proportion.}
+\label{fig:facility_rates}
+\end{figure}
+
+\section*{Model}
+
+Facilities are grouped within counties, creating a hierarchical data structure in which outcomes from facilities in the same county may be partially influenced by shared county-level characteristics, such as patient population composition, referral patterns, and institutional practices. To account for this structure, a hierarchical Bayesian binomial model with a random intercept for county and fixed effects for facility type was fit to the data. This model was appropriate because the outcome consisted of counts of infections out of known procedure totals, and the hierarchical formulation allowed partial pooling across facilities within counties. This stabilized estimates for low-volume facilities while capturing meaningful variation across counties.
+
+The hierarchical specification is:
+
+\vspace{0.5em}
+\noindent\textbf{Likelihood:} 
+\[
+y_i \mid a_{c[i]}, \phi_i \sim \text{Binomial}(n_i, \phi_i), \quad i=1,\ldots,288
+\]
+
+\noindent\textbf{Linear predictor:} 
+\[
+\begin{aligned}
+\text{logit}(\phi_i) &= a_{c[i]} + \beta_1\,\text{beds}_{125\text{--}250,i} + \beta_2\,\text{beds}_{>250,i} \\
+&\quad + \beta_3\,\text{major\_teach}_i
+\end{aligned}
+\]
+
+\noindent\textbf{County effects:} 
+\[
+a_c \mid \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2), \quad c=1,\ldots,42
+\]
+
+Weakly informative priors were assigned to the regression coefficients and county-level hyperparameters:
+
+\vspace{-2.0em}
+\[
+\beta_k \sim \mathcal{N}(0,2.5^2),\ \mu \sim \mathcal{N}(0,2.5^2),\ \sigma \sim t^+_3(0,2.5)
+\]
+
+These choices follow Gelman et al. (\href{https://sites.stat.columbia.edu/gelman/book/}{\emph{Bayesian Data Analysis}}, Section 5.7) and provide stability for variance estimates while allowing the observed data to dominate the posterior \citep{gelman2013}.
+
+The model was implemented using JAGS in R with three chains and 100,000 posterior iterations following burn-in. Residual diagnostics did not indicate substantial lack of fit. Standard convergence diagnostics indicated that all chains converged to the same stationary distribution.
+
+Autocorrelation patterns were consistent with expectations for hierarchical models. The regression coefficients ($\beta_1$–$\beta_3$) and the overall county-level mean ($\mu$) exhibited moderate autocorrelation that persisted until approximately 150 lags. The standard deviation of the county-level effects ($\sigma$) showed low autocorrelation that dissipated by roughly 20 lags. County-level random effects displayed a range of autocorrelation patterns: some counties showed moderate autocorrelation persisting up to 150--200 lags, while others exhibited low autocorrelation after approximately 10 lags, reflecting differences in the number of facilities and the amount of information available across counties. Effective sample sizes were sufficient for reliable posterior summaries, with ESS $>3{,}000$ for regression coefficients, $\mu$, and $\sigma$, and county-level effects ranging from approximately $3{,}000$ to more than $20{,}000$.
+
+Model fit was further summarized by a mean deviance of 899.4 and an effective complexity penalty of 24.2. The penalty was lower than the nominal number of parameters because partial pooling caused county-level effects to share information, effectively reducing the number of independent parameters. Together, these diagnostics support stable estimation and valid posterior inference for both facility- and county-level infection risks.
+
+For comparison, a non-hierarchical binomial logistic regression model without county-level random effects was also fit. This alternative specification estimated only global regression coefficients and implicitly assumed a common baseline infection risk across counties. Consequently, it could not capture geographic heterogeneity in baseline risk and provided limited support for facility-level inference in low-volume settings. These limitations supported the use of the hierarchical specification, which more closely reflects the multilevel structure of the data and the substantive sources of variation in SSI risk.
+
+\section*{Results}
+
+The R model summary output is shown below. Only three county coefficients are displayed due to space limitations. These correspond to the largest, middle, and smallest values.
+
+\VerbatimInput[fontsize=\small, samepage=true]{model_output.txt}
+
+\vspace{-1.1em}
+Posterior estimates indicate that all non-reference facility types had higher log-odds of infection than the reference group (Community, $<125$ Beds). Posterior means for the regression coefficients on the log-odds scale were 0.30, 0.61, and 0.59 for Community $125$--$250$ Beds, Community $>250$ Beds, and Major Teaching facilities, respectively. The 95\% credible intervals for all three groups lay largely above zero, indicating a higher infection probability relative to the reference.
+
+The overall county-level intercept had a posterior mean of $\mu = -4.45$, representing the baseline log-odds for the reference facility type. This logit can be transformed to the probability scale using the inverse-logit function:
+
+\[
+\begin{aligned}
+\text{logit}^{-1}(\mu) 
+  &= \frac{1}{1 + \exp(-\mu)} \\
+  &\approx \frac{1}{1 + \exp(4.45)} \\
+  &\approx 0.0116 \; (1.16\%)
+\end{aligned}
+\]
+
+which corresponds to the mean statewide estimate of SSI risk for a Community, $<125$ Bed facility.
+
+The posterior standard deviation of the county-level random effects, $\sigma \approx 0.46$, indicated moderate variation in baseline risk across counties, suggesting that county-specific factors contributed meaningfully to infection risk.
+
+In addition to estimating facility- and county-level effects, posterior samples from the hierarchical Bayesian model were used to make probabilistic statements about individual hospitals relative to the statewide pooled infection proportion. For example, the posterior distribution of Riverside Community Hospital’s facility-specific infection probability, $\phi_\text{Riverside}$, was extracted and compared to the overall statewide pooled proportion. The proportion of posterior draws in which $\phi_\text{Riverside}$ exceeded the statewide rate was computed, yielding a median posterior SSI rate of approximately 2.08\%, with a 95\% credible interval of 1.46\% to 2.90\%, and a 47.6\% posterior probability of exceeding the statewide pooled infection proportion of 2.10\%. These results indicate no strong evidence that Riverside Community Hospital’s infection rate was higher than the state average. This demonstrates the advantage of the Bayesian framework, which allows direct probability statements about individual facilities, an inference not possible with traditional frequentist models, and highlights the utility of posterior distributions for facility-specific risk comparisons.
+
+\section*{Conclusions}
+
+The hierarchical Bayesian model provides a coherent framework for estimating surgical site infection risk while accounting for both facility type and county-level variation. By partially pooling information across facilities within counties, the model stabilizes estimates for smaller-volume hospitals, reduces the noise inherent in raw observed rates, and yields more interpretable posterior distributions of facility-specific risk. The analysis highlights that larger community hospitals and major teaching facilities tend to have higher infection probabilities relative to smaller community hospitals, and that baseline risk differs meaningfully across counties, reflecting regional heterogeneity.
+
+Posterior distributions enable probabilistic comparisons of individual facility risk relative to the statewide pooled infection proportion, demonstrating the added inferential flexibility of the Bayesian approach. For most facilities, these comparisons reveal the degree of certainty regarding elevated or lower-than-average risk, emphasizing the importance of incorporating both facility- and county-level effects in risk assessment.
+
+Limitations of this study include reliance on facility-reported data, which may be incomplete or misclassified, and the absence of patient-level covariates that could further explain variation in infection risk. The model also assumes a common effect of facility type across counties, which may simplify local differences. Future work could extend the framework to incorporate additional predictors, explore alternative hierarchical structures, and conduct more extensive predictive validation.
+
+Overall, the hierarchical approach demonstrates that multilevel modeling with partial pooling can generate robust, interpretable estimates of SSI risk, capturing both facility-specific patterns and regional variability while allowing direct probabilistic statements about relative risk. This approach provides a principled foundation for understanding variability in infection rates across hospitals and regions.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
