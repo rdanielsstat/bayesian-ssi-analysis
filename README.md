@@ -2,12 +2,12 @@
 
 [![License: CC-BY-NC-4.0](https://img.shields.io/badge/License-CC--BY--NC--4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 
-> **Manuscript-Style Summary Available:**  
-> For a concise, manuscript-quality summary of this project, including abstract, full introduction, methods, results, and conclusions formatted in LaTeX, see [the report PDF](latex/20260115_example_report.pdf). This abridged write-up presents a narrative version of the analysis, primarily highlighting the final hierarchical Bayesian model, demonstrating the ability to produce a publication-ready report alongside reproducible code and notebooks.
-
 This repository contains the data, analyses, and documentation for estimating facility-level surgical site infection (SSI) risk following colon procedures in California hospitals in 2024. The project employs hierarchical Bayesian modeling and complementary statistical methods to produce stable, interpretable estimates of hospital-specific and county-specific SSI risk.
 
 ## Project Overview
+
+> **Manuscript-Style Summary Available:**  
+> For a concise, manuscript-quality summary of this project, including abstract, full introduction, methods, results, and conclusions formatted in LaTeX, see [the report PDF](latex/20260115_example_report.pdf). This abridged write-up presents a narrative version of the analysis, primarily highlighting the final hierarchical Bayesian model, demonstrating the ability to produce a publication-ready report alongside reproducible code and notebooks.
 
 Surgical site infections (SSIs) are a major source of postoperative complications, morbidity, and healthcare costs. Hospital-level SSI data are often sparse, particularly for low-volume facilities, leading to noisy estimates of risk. This project focuses on:
 
