@@ -2,6 +2,9 @@
 
 [![License: CC-BY-NC-4.0](https://img.shields.io/badge/License-CC--BY--NC--4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 
+> **Manuscript-Style Summary Available:**  
+> For a concise, manuscript-quality summary of this project, including abstract, full introduction, methods, results, and conclusions formatted in LaTeX, see [the report PDF](latex/20260115_example_report.pdf). This abridged write-up presents a narrative version of the analysis, primarily highlighting the final hierarchical Bayesian model, demonstrating the ability to produce a publication-ready report alongside reproducible code and notebooks.
+
 This repository contains the data, analyses, and documentation for estimating facility-level surgical site infection (SSI) risk following colon procedures in California hospitals in 2024. The project employs hierarchical Bayesian modeling and complementary statistical methods to produce stable, interpretable estimates of hospital-specific and county-specific SSI risk.
 
 ## Project Overview
@@ -35,6 +38,7 @@ The analyses in this project use the following tools and frameworks:
 - **Hierarchical Bayesian Modeling** – Partial pooling to stabilize estimates for low-volume hospitals and account for multilevel structure.
 - **Generalized Linear Mixed Models (GLMMs)** – Facility- and county-level random effects for comparison with Bayesian hierarchical models.
 - **Notebook & Markdown Integration** – Code, text, equations, and output are interleaved throughout the notebooks, providing clear documentation of the workflow.
+- **LaTeX Manuscript Report** – Provides a concise, publication-quality summary of the full analysis.
 
 ## Repository Structure
 
@@ -47,6 +51,7 @@ The analyses in this project use the following tools and frameworks:
 ├── references.bib                    # BibTeX references
 ├── data/                             # Raw dataset (publicly available)
 ├── figures/                          # Generated figures from analyses
+├── latex/                            # LaTeX manuscript-style report
 ├── myst.yml                          # MyST project configuration
 └── README.md                         # This file
 ```

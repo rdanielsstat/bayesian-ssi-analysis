@@ -10,9 +10,8 @@ exports:
 keywords: [surgical site infection, colon surgery, hospital quality, healthcare-associated infections, California hospitals, epidemiology, risk modeling]
 ---
 
-:::{seealso}
-For a manuscript-quality summary of this project, including abstract, introduction, methods, results, and conclusions formatted in LaTeX, see [this report](latex/20260115_example_report.pdf). This abridged write-up presents the same analysis in a concise, narrative format, highlighting the manuscript-ready presentation of the work.
-:::
+> **Manuscript-Style Summary Available:**  
+> For a concise, manuscript-quality summary of this project, including abstract, full introduction, methods, results, and conclusions formatted in LaTeX, see [the report PDF](latex/20260115_example_report.pdf). This abridged write-up presents a narrative version of the analysis, primarily highlighting the final hierarchical Bayesian model, demonstrating the ability to produce a publication-ready report alongside reproducible code and notebooks.
 
 Surgical site infections (SSIs) are complications of surgery that account for 20–31% of all hospital-acquired infections (HAIs) and substantially increase patient morbidity, mortality, and hospitalization costs [@nhsn2026ssi]. After colorectal surgery, it has been estimated that 4.2% of patients develop SSIs, resulting in longer hospital stays and higher costs [@gantz2019].
 
