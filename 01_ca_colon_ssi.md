@@ -10,7 +10,7 @@ exports:
 keywords: [surgical site infection, colon surgery, hospital quality, healthcare-associated infections, California hospitals, epidemiology, risk modeling]
 ---
 
-:::{callout}
+:::{seealso}
 For a concise, manuscript-quality summary of this project, including abstract, full introduction, methods, results, and conclusions formatted in LaTeX, see [the report PDF](latex/20260115_example_report.pdf). This abridged write-up presents a narrative version of the analysis, primarily highlighting the final hierarchical Bayesian model, demonstrating the ability to produce a publication-ready report alongside reproducible code and notebooks.
 :::
 
