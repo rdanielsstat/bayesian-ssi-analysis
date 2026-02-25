@@ -2,43 +2,16 @@
 
 [![License: CC-BY-NC-4.0](https://img.shields.io/badge/License-CC--BY--NC--4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 
-This repository contains the data, analyses, and documentation for estimating facility-level surgical site infection (SSI) risk following colon procedures in California hospitals in 2024. The project employs hierarchical Bayesian modeling and complementary statistical methods to produce stable, interpretable estimates of hospital-specific and county-specific SSI risk.
-
-## Project Overview
-
-> **Manuscript-Style Summary Available:**  
-> For a concise, manuscript-quality summary of this project, including abstract, full introduction, methods, results, and conclusions formatted in LaTeX, see [the report PDF](latex/20260115_example_report.pdf). This abridged write-up presents a narrative version of the analysis, primarily highlighting the final hierarchical Bayesian model, demonstrating the ability to produce a publication-ready report alongside reproducible code and notebooks.
-
-Surgical site infections (SSIs) are a major source of postoperative complications, morbidity, and healthcare costs. Hospital-level SSI data are often sparse, particularly for low-volume facilities, leading to noisy estimates of risk. This project focuses on:
-
-1. Estimating facility-level SSI risk using hierarchical Bayesian models that account for both facility type and county-level effects.
-2. Comparing hierarchical Bayesian results with alternative approaches, including:
-   - Standard logistic regression
-   - Non-hierarchical Bayesian binomial modeling
-   - Generalized linear mixed models (GLMMs)
-
-The project includes four main analyses:
-
-1. **Introduction and Background** – Overview of SSIs, data source, and research questions.
-2. **Data Exploration** – Summary and visualization of facility-level SSI rates and related covariates.
-3. **Non-Hierarchical Models** – Logistic and Bayesian binomial models without partial pooling.
-4. **Hierarchical Models** – GLMM and hierarchical Bayesian models for partially pooled risk estimation.
+Hospital-level SSI data are sparse, particularly for low-volume facilities, making naive risk estimates unreliable. This project estimates facility-level SSI risk following colon procedures in California hospitals (2024), using hierarchical Bayesian modeling to produce stable estimates through partial pooling across facilities and counties.
 
 ## Tools and Methods
 
-The analyses in this project use the following tools and frameworks:
+**Methods:** Hierarchical Bayesian binomial models with partial pooling for facility- and county-level effects. Compared against logistic regression, non-hierarchical Bayesian binomial models, and GLMMs to illustrate what pooling recovers and where flat models break down.
 
-- **[MyST Markdown / MyST-NB](https://mystmd.org/)** – For notebook-based reproducible workflows integrating Markdown, R, and LaTeX math.
-- **[R](https://www.r-project.org/)** – Primary analysis environment.
-- **[JAGS](https://mcmc-jags.sourceforge.io/)** – Bayesian computation and MCMC sampling.
-- **[ggplot2](https://ggplot2.tidyverse.org/)** and **[plotly](https://plotly.com/r/)** – Data visualization and interactive graphics.
-- **[tidyverse](https://www.tidyverse.org/)** – Data wrangling and manipulation.
-- **Reproducible analytic workflow** – Analyses are conducted in MyST notebooks with code, commentary, and figures interleaved.
-- **References/Citations** – Integrated with a BibTeX file (`references.bib`) to provide in-text citations and reference management.
-- **Hierarchical Bayesian Modeling** – Partial pooling to stabilize estimates for low-volume hospitals and account for multilevel structure.
-- **Generalized Linear Mixed Models (GLMMs)** – Facility- and county-level random effects for comparison with Bayesian hierarchical models.
-- **Notebook & Markdown Integration** – Code, text, equations, and output are interleaved throughout the notebooks, providing clear documentation of the workflow.
-- **LaTeX Manuscript Report** – Provides a concise, publication-quality summary of the full analysis.
+**Tools:** R · JAGS · ggplot2 · plotly · tidyverse · MyST Markdown · LaTeX
+
+> **Manuscript-Style Summary Available:**  
+> For a concise, manuscript-quality summary of this project, including abstract, full introduction, methods, results, and conclusions formatted in LaTeX, see [the report PDF](latex/20260115_example_report.pdf). The report focuses on the final hierarchical model and is formatted for publication.
 
 ## Repository Structure
 
